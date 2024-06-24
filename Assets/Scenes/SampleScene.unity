@@ -196,7 +196,7 @@ MonoBehaviour:
   - {fileID: 3804647190583059005, guid: bda591069ce547441af4294e0965cc44, type: 3}
   - {fileID: 5858713386703353810, guid: cf74007aba4a1f448a7b991e4f369bd1, type: 3}
   _timeSpawn: 1
-  _speedEnemy: 10
+  _speedEnemy: 5
 --- !u!4 &77247469
 Transform:
   m_ObjectHideFlags: 0
