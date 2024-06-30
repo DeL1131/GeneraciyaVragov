@@ -1,28 +1,33 @@
-
+using System.Collections;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private Transform[] _points;
     [SerializeField] private Enemy[] _enemys;
+
+    [Tooltip("Интервал спавна противников")]
     [SerializeField] private float _timeSpawn;
     [SerializeField] private float _speedEnemy;
 
+    private bool isWork = true;
     private Enemy _enemy;
-    private Transform[] _targets;
 
     private void Start()
     {
-        InvokeRepeating(nameof(CreateEnemy), 0.0f, _timeSpawn);
+        StartCoroutine(CreateEnemy());
     }
 
-    private void CreateEnemy()
+    private IEnumerator CreateEnemy()
     {
-        _enemy = _enemys[Random.Range(0, _enemys.Length)];
-        Instantiate(_enemy, _points[Random.Range(0, _points.Length)].transform.position, Quaternion.identity);
-        var position = new Vector3(Random.Range(-10.0f, 10.0f), 0, Random.Range(-10.0f, 10.0f));
-        _enemy.GetSpeed(_speedEnemy);
-        _enemy.GetTarget(position);
+        while (isWork)
+        {
+            yield return new WaitForSeconds(1);
+            _enemy = _enemys[Random.Range(0, _enemys.Length)];
+            Instantiate(_enemy, _points[Random.Range(0, _points.Length)].transform.position, Quaternion.identity);
+            Quaternion rotate = Quaternion.Euler(0, Random.Range(0, 361), 0);
+
+            _enemy.SetParametrs(_speedEnemy, rotate);
+        }
     }
 }
-    
