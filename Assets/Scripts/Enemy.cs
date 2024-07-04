@@ -5,13 +5,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _speed;
-    [SerializeField] private Quaternion _rotate;
+    [SerializeField] private Vector3 _direction;
     private Rigidbody _rigidbody;
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        transform.rotation = _rotate;
     }
 
     private void FixedUpdate()
@@ -21,12 +20,12 @@ public class Enemy : MonoBehaviour
 
     public void MoveForward()
     {
-        _rigidbody.MovePosition(_rigidbody.position + transform.forward * 1f * Time.deltaTime);
+        transform.Translate(_direction * _speed * Time.deltaTime, Space.World);
     }
 
-    public void SetParametrs(float speed, Quaternion rotate)
+    public void SetParametrs(float speed, Vector3 direction)
     {
         _speed = speed;
-        _rotate = rotate;
+        _direction = direction;
     }
 }

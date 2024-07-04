@@ -20,14 +20,15 @@ public class Spawner : MonoBehaviour
 
     private IEnumerator CreateEnemy()
     {
+        WaitForSeconds waitForSeconds = new WaitForSeconds(_timeSpawn);
         while (isWork)
         {
-            yield return new WaitForSeconds(1);
+            yield return waitForSeconds;
             _enemy = _enemys[Random.Range(0, _enemys.Length)];
-            Instantiate(_enemy, _points[Random.Range(0, _points.Length)].transform.position, Quaternion.identity);
-            Quaternion rotate = Quaternion.Euler(0, Random.Range(0, 361), 0);
+            Enemy spawnedEnemy = Instantiate(_enemy, _points[Random.Range(0, _points.Length)].transform.position, Quaternion.identity);
+            Vector3 direction = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
 
-            _enemy.SetParametrs(_speedEnemy, rotate);
+            spawnedEnemy.SetParametrs(_speedEnemy, direction);
         }
-    }
+    } 
 }
