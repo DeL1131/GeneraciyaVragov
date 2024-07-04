@@ -13,6 +13,10 @@ public class Spawner : MonoBehaviour
     private bool isWork = true;
     private Enemy _enemy;
 
+    private float _minSpawnRange = -1;
+    private float _maxSpawnRange = 1;
+
+
     private void Start()
     {
         StartCoroutine(CreateEnemy());
@@ -26,7 +30,7 @@ public class Spawner : MonoBehaviour
             yield return waitForSeconds;
             _enemy = _enemys[Random.Range(0, _enemys.Length)];
             Enemy spawnedEnemy = Instantiate(_enemy, _points[Random.Range(0, _points.Length)].transform.position, Quaternion.identity);
-            Vector3 direction = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
+            Vector3 direction = new Vector3(Random.Range(_minSpawnRange, _maxSpawnRange), 0, Random.Range(_minSpawnRange, _maxSpawnRange)).normalized;
 
             spawnedEnemy.SetParametrs(_speedEnemy, direction);
         }
